@@ -1,0 +1,63 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#searchResult {
+    background-color: #EFEFEF;
+    margin-top:11px;
+}
+
+.searchResult {
+    height: 80px;
+    border: 1px solid #DFE0E0;
+    background:white;
+    border-radius: 3px;
+    margin: 14px 0px;
+    padding: 5px 12px;
+}
+#header {
+}
+#title {
+    font-family: 'Bree Serif', serif;
+    display: inline-block;
+}
+
+#search {
+    display: inline-block;
+    height: 80px;
+    width: 300px;
+    background-color: #DD4C58;
+    text-align: center;
+    padding-top: 25px;
+    float: right;
+}
+
+
+/* Scrolling for searchResult */
+
+#searchResult {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+    #searchResult::-webkit-scrollbar-track {
+        background-color: #EFEFEF;
+    }
+
+    #searchResult::-webkit-scrollbar {
+        width: 6px;
+        background-color: #A3A2A3;
+    }
+
+    #searchResult::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #A3A2A3;
+    }
