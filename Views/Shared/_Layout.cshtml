@@ -19,25 +19,19 @@
     </environment>
 </head>
 <body>
-    <div class="container body-content">
         <div id="header">
             <h1 id="title">GitStats</h1>
-            <form id="search">
-                <input type="text" id="searchBar" placeholder="Nom du projet" />
-                <input type="submit" />
-            </form>
         </div>
-    </div>
         <partial name="_CookieConsentPartial" />
 
 
         @RenderBody()
 
 
-        <footer class="container">
+        <!-- <footer class="container">
             <hr />
             <p>&copy; 2018 - GitStats</p>
-        </footer>
+        </footer> -->
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

@@ -1,6 +1,7 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
+    background-color: #EFEFEF;
 }
 
 /* Wrapping element */
@@ -10,43 +11,78 @@ body {
     padding-right: 15px;
 }
 
+
+#searchModule {
+    padding:0px;
+}
+#main {
+    position:absolute;
+    width:100%;
+    margin:auto;
+}
+.container {
+    padding:0px;
+}
+#stats {
+}
+.graph {
+    height: 400px;
+    border: 1px solid #DFE0E0;
+    background: white;
+    border-radius: 3px;
+    margin: 14px 0px;
+    padding: 5px 12px;
+}
+.graphModule {
+    float: right;
+}
 #searchResult {
-    background-color: #EFEFEF;
-    margin-top:11px;
+    overflow-y: scroll;
+    padding-left: 5px;
 }
 
 .searchResult {
-    height: 80px;
+    height: 125px;
     border: 1px solid #DFE0E0;
     background:white;
     border-radius: 3px;
     margin: 14px 0px;
     padding: 5px 12px;
 }
+
+.projectStars {
+    float: right;
+    font-size:18px;
+}
+.projectStarsImg {
+    float: right;
+    width: 20px;
+    margin-right: 8px;
+}
+.projectOwnerImg {
+    width:30px;
+}
+.projectOwner {
+    margin-left: 10px;
+}
 #header {
+    margin-left:10px;
 }
 #title {
     font-family: 'Bree Serif', serif;
     display: inline-block;
+    margin-top: 5px;
 }
 
 #search {
-    display: inline-block;
-    height: 80px;
-    width: 300px;
     background-color: #DD4C58;
     text-align: center;
-    padding-top: 25px;
-    float: right;
+    padding: 10px 0px;
 }
 
 
 /* Scrolling for searchResult */
 
-#searchResult {
-    height: 200px;
-    overflow-y: scroll;
-}
 
     #searchResult::-webkit-scrollbar-track {
         background-color: #EFEFEF;

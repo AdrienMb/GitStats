@@ -20,7 +20,7 @@ namespace GitStats.Controllers
      
 
         // GET: api/Search/5
-        [HttpGet("{project}", Name = "Get")]
+        [HttpGet("{project}", Name = "GetSearch")]
         public async Task<string> GetAsync(string project)
         {
             client.DefaultRequestHeaders.Accept.Clear();

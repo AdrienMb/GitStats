@@ -9,16 +9,18 @@
             dataType: "json",
             success: function (data, i) {
                 $("#searchResult").html("");
-                var row = "<div class=\"row\">";
+                var row = "";
                 data.forEach(function (element, i) {
-                    console.log(element["name"]);
-                    row += "<div class=\"col-sm-4\"><div class=\"searchResult\">" + element["name"] + "</div></div>";
-                    if ((i + 1) % 3 == 0) {
-                        row += "</div>";
-                        $("#searchResult").append(row);
-                        row = "<div class=\"row\">";
-                    }
+                    row += "<a href='#"+element["id"]+"'><div class='searchResult'> ";
+                    row += "<h3 class='projectName'>"+element["name"]+"</h3>";
+                    row += "<span class='projectStars'>" + element["stargazers_count"] + "</span><img class='projectStarsImg' src='/images/star.png' />";
+                    row += "<img class='projectOwnerImg' src='" + element["owner"]["avatar_url"]+"'/>";
+                    row += "</ br><span class='projectOwner'>" + element["owner"]["login"] + "</span>";
+                    row += "</div>";
+                    $("#searchResult").append(row);
+                    row = "";
                 });
+
 
             },
             failure: function (response) {
