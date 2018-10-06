@@ -19,17 +19,20 @@ namespace GitStats.Controllers
         private static readonly HttpClient client = new HttpClient();
 
 
-        // GET: api/Stats/5
+        // GET: api/Stats/:project-:owner
         [HttpGet("{projectWithOwner}", Name = "GetStats")]
         public async Task<string> GetAsync(string projectWithOwner)
         {
-            return await GetContributorsAsync(projectWithOwner);
-        }
 
-        public async Task<string> GetContributorsAsync(string projectWithOwner)
-        {
             string project = projectWithOwner.Split('-')[0];
             string owner = projectWithOwner.Split('-')[1];
+            List<UserModel> contributors = await GetContributorsAsync(project, owner);
+            List<UserModel> contributorsWithCommits = await GetCommitsAsync(project, owner, contributors);
+            return JsonConvert.SerializeObject(contributorsWithCommits, Formatting.Indented);
+        }
+
+        public async Task<List<UserModel>> GetContributorsAsync(string project, string owner)
+        {
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
             client.DefaultRequestHeaders.Add("User-Agent", "request");
@@ -40,10 +43,34 @@ namespace GitStats.Controllers
             List<UserModel> authors = new List<UserModel>();
             foreach(JObject jauthor in arr)
             {
-                var jObjectauthor = JsonConvert.DeserializeObject<JObject>(jauthor.ToString());
-                authors.Add(jObjectauthor.Value<JObject>("author").ToObject<UserModel>());
+                UserModel author = jauthor.Value<JObject>("author").ToObject<UserModel>();
+                author.Commits = new List<string>();
+                authors.Add(author);
             }
-            return JsonConvert.SerializeObject(authors);
+            return authors;
+        }
+        public async Task<List<UserModel>> GetCommitsAsync(string project, string owner, List<UserModel> contributors)
+        {
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
+
+            var stringTask = client.GetStringAsync("https://api.github.com/repos/" + owner + "/" + project + "/commits?per_page=100");
+            JArray arr = JArray.Parse(await stringTask);
+             foreach(JObject jcommit in arr)
+            {
+                JObject jauthor = jcommit.Value<JObject>("author");
+                if (jauthor != null)
+                {
+                    int committerId = jauthor.Value<int>("id");
+                    string date = jcommit.Value<JObject>("commit").Value<JObject>("author").Value<string>("date");
+                    UserModel committer = contributors.Find(contributor => contributor.Id == committerId);
+                    committer.Commits.Add(date);
+                }
+            }
+
+            return contributors;
+
         }
     }
 }

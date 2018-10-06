@@ -8,10 +8,16 @@ namespace GitStats.Models
 {
     public class UserModel
     {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
         [JsonProperty("login")]
         public string Login { get; set; }
 
         [JsonProperty("avatar_url")]
-        public string Avatar_url { get; set; }
+        public string AvatarUrl { get; set; }
+
+        [JsonProperty("commits")]
+        public List<string> Commits { get; set; }
     }
 }

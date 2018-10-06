@@ -19,7 +19,7 @@ namespace GitStats.Controllers
         private static readonly HttpClient client = new HttpClient();
      
 
-        // GET: api/Search/5
+        // GET: api/Search/:project
         [HttpGet("{project}", Name = "GetSearch")]
         public async Task<string> GetAsync(string project)
         {
@@ -33,7 +33,7 @@ namespace GitStats.Controllers
             Console.WriteLine(stuff);
             var result = JsonConvert.DeserializeObject<JObject>(stuff.ToString());
             var projects = result.Value<JArray>("items").ToObject<List<ProjectModel>>();
-            return JsonConvert.SerializeObject(projects);
+            return JsonConvert.SerializeObject(projects, Formatting.Indented);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace GitStats.Models
     public class ProjectModel
     {
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
