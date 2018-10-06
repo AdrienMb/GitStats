@@ -18,6 +18,6 @@ namespace GitStats.Models
         public string AvatarUrl { get; set; }
 
         [JsonProperty("commits")]
-        public List<string> Commits { get; set; }
+        public List<DateTime> Commits { get; set; }
     }
 }

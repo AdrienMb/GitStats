@@ -19,24 +19,23 @@
     </environment>
 </head>
 <body>
-        <div id="header">
-            <h1 id="title">GitStats</h1>
-        </div>
-        <partial name="_CookieConsentPartial" />
+    <div id="header">
+        <h1 id="title">GitStats</h1>
+    </div>
+    <partial name="_CookieConsentPartial" />
 
 
-        @RenderBody()
+    @RenderBody()
 
 
-        <!-- <footer class="container">
-            <hr />
-            <p>&copy; 2018 - GitStats</p>
-        </footer> -->
+    <!-- <footer class="container">
+        <hr />
+        <p>&copy; 2018 - GitStats</p>
+    </footer> -->
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -52,6 +51,9 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
     </environment>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" type="text/javascript"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

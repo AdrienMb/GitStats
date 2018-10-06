@@ -19,13 +19,13 @@ namespace GitStats.Controllers
         private static readonly HttpClient client = new HttpClient();
 
 
-        // GET: api/Stats/:project-:owner
+        // GET: api/Stats/:project&:owner
         [HttpGet("{projectWithOwner}", Name = "GetStats")]
         public async Task<string> GetAsync(string projectWithOwner)
         {
 
-            string project = projectWithOwner.Split('-')[0];
-            string owner = projectWithOwner.Split('-')[1];
+            string project = projectWithOwner.Split('&')[0];
+            string owner = projectWithOwner.Split('&')[1];
             List<UserModel> contributors = await GetContributorsAsync(project, owner);
             List<UserModel> contributorsWithCommits = await GetCommitsAsync(project, owner, contributors);
             return JsonConvert.SerializeObject(contributorsWithCommits, Formatting.Indented);
@@ -44,7 +44,7 @@ namespace GitStats.Controllers
             foreach(JObject jauthor in arr)
             {
                 UserModel author = jauthor.Value<JObject>("author").ToObject<UserModel>();
-                author.Commits = new List<string>();
+                author.Commits = new List<DateTime>();
                 authors.Add(author);
             }
             return authors;
@@ -63,9 +63,13 @@ namespace GitStats.Controllers
                 if (jauthor != null)
                 {
                     int committerId = jauthor.Value<int>("id");
-                    string date = jcommit.Value<JObject>("commit").Value<JObject>("author").Value<string>("date");
+                    DateTime date = jcommit.Value<JObject>("commit").Value<JObject>("author").Value<DateTime>("date");
+                    int delta = DayOfWeek.Monday - date.DayOfWeek;
+                    DateTime monday = date.AddDays(delta);
                     UserModel committer = contributors.Find(contributor => contributor.Id == committerId);
-                    committer.Commits.Add(date);
+                    System.Diagnostics.Debug.WriteLine(date);
+                    if (committer!=null)
+                        committer.Commits.Add(monday);
                 }
             }
 
