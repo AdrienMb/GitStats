@@ -1,6 +1,7 @@
 ﻿
 function stats(name, owner) {
     event.preventDefault();
+    loader("#statsLoader");
     $.ajax({
         url: "/api/Stats/" + name + "&" + owner,
         type: "GET",
@@ -8,6 +9,7 @@ function stats(name, owner) {
         success: function (data, i) {
             contributors(data,name,owner);
             commitsGraph(data);
+            $("#statsLoader").css("background", "white");
         },
         failure: function (response) {
             alert(response);
@@ -16,12 +18,12 @@ function stats(name, owner) {
 }
 function contributors(data, name,owner) {
     var row = "";
-    row += "<a href='#' id='save' onclick=\"saveBookmark('" + name + "','" + owner + "')\">Sauvegarder</a>";
+    row += "<a href='#' id='save' onclick=\"saveBookmark('" + name + "','" + owner + "')\">Sauvegarder</a><br />";
     $("#contributors").html("");
     data.forEach(function (element, i) {
-        row += "<img class='projectOwnerImg' src='" + element["avatar_url"] + "'/>";
+        row += "<div class='contributor'><img class='projectOwnerImg' src='" + element["avatar_url"] + "'/>";
         row += "</ br><span class='projectOwner'>" + element["login"] + "</span>";
-        row += "<span class='nbCommits'>" + element["commits"].length + "</span><br />";
+        row += "<span class='nbCommits'>" + element["commits"].length + "</span></div>";
         $("#contributors").append(row);
         row = "";
     });
@@ -57,7 +59,7 @@ function commitsGraph(data) {
         }]
     }];
     var layout = {
-        title: '100 derniers commits pour chaque semaine',
+        title: 'Commits pour chaque semaine (sur les 100 derniers)',
         font: {
             family: 'Raleway, sans-serif'
         },

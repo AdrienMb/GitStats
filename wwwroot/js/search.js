@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     $("#search").submit(function (e) {
         event.preventDefault();
+        loader("#searchLoader");
         console.log("test2");
         $.ajax({
             url: "/api/Search/" + $("#searchBar").val(),
@@ -20,6 +21,7 @@
                     row = "";
                 });
 
+                $("#searchLoader").css("background", "white");
 
             },
             failure: function (response) {

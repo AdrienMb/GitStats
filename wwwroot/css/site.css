@@ -11,9 +11,11 @@ body {
     padding-right: 15px;
 }
 
-
+.col-sm-3 graphModule {
+    padding-left: 30px;
+}
 #searchModule {
-    padding:0px;
+    padding-left: 15px;
 }
 #main {
     position:absolute;
@@ -25,29 +27,28 @@ body {
 }
 #stats {
 }
+
 .graph {
-    height: 400px;
-    border: 1px solid #DFE0E0;
+    border-bottom: 1px solid #DFE0E0;
     background: white;
-    border-radius: 3px;
-    margin: 14px 0px;
     padding: 5px 12px;
+    padding-bottom:40px;
 }
 .graphModule {
     float: right;
 }
 #searchResult {
-    overflow-y: scroll;
-    padding-left: 5px;
 }
-
+.loader {
+    height: 4px;
+    width: 100%;
+    background: white;
+}
 .searchResult {
-    height: 125px;
-    border: 1px solid #DFE0E0;
+    height: 100px;
+    border-bottom: 1px solid #DFE0E0;
     background:white;
-    border-radius: 3px;
-    margin: 14px 0px;
-    padding: 5px 12px;
+    padding: 5px 10px;
 }
 
 .projectStars {
@@ -66,34 +67,42 @@ body {
     margin-left: 10px;
 }
 #header {
-    margin-left:10px;
+    text-align: center;
+    background: #333;
+    color: white;
+}
+#logo {
+    height: 40px;
+    padding-right: 10px;
+    margin-top: -18px;
 }
 #title {
     font-family: 'Bree Serif', serif;
     display: inline-block;
-    margin-top: 5px;
+    margin-top:5px;
+}
+
+.desc {
+    font-family: 'Bree Serif', serif;
 }
 
 #search {
-    background-color: #DD4C58;
+    background-color: #2D2D2D;
     text-align: center;
     padding: 10px 0px;
 }
 
+#bookmark {
+    color: white;
+    margin-top:8px;
+    display:block;
+}
 
-/* Scrolling for searchResult */
+.contributor {
+    margin-top:10px;
+}
 
+.nbCommits {
+    float: right;
+}
 
-    #searchResult::-webkit-scrollbar-track {
-        background-color: #EFEFEF;
-    }
-
-    #searchResult::-webkit-scrollbar {
-        width: 6px;
-        background-color: #A3A2A3;
-    }
-
-    #searchResult::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background-color: #A3A2A3;
-    }
