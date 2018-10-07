@@ -24,8 +24,17 @@
                 $("#searchLoader").css("background", "white");
 
             },
-            failure: function (response) {
-                alert(response);
+            error: function (xhr, textStatus, errorThrown) {
+                if (textStatus == 'timeout') {
+                    this.tryCount++;
+                    if (this.tryCount <= this.retryLimit) {
+                        $.ajax(this);
+                        return;
+                    }
+                    alert("Une erreur est survenue.");
+                    return;
+                }
+                alert("Une erreur est survenue.");
             }
         });
     });

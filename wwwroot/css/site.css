@@ -11,9 +11,7 @@ body {
     padding-right: 15px;
 }
 
-.col-sm-3 graphModule {
-    padding-left: 30px;
-}
+
 #searchModule {
     padding-left: 15px;
 }
@@ -27,7 +25,10 @@ body {
 }
 #stats {
 }
-
+.button {
+    text-align:center;
+    background:white;
+}
 .graph {
     border-bottom: 1px solid #DFE0E0;
     background: white;
@@ -35,9 +36,10 @@ body {
     padding-bottom:40px;
 }
 .graphModule {
-    float: right;
 }
 #searchResult {
+    max-height: 700px;
+    overflow-y: scroll;
 }
 .loader {
     height: 4px;
@@ -98,11 +100,38 @@ body {
     display:block;
 }
 
+#contributors {
+    max-height: 700px;
+    overflow-y: scroll;
+}
+
 .contributor {
     margin-top:10px;
 }
-
+h4.contributor, h4.nbCommits{
+    display: inline-block;
+}
 .nbCommits {
     float: right;
 }
 
+#graphPlotly {
+    width: 100%;
+    height: 450px;
+}
+
+#contributors::-webkit-scrollbar-track {
+    background-color: #EFEFEF;
+}
+#searchResult::-webkit-scrollbar-track {
+    background-color: white;
+}
+    #contributors::-webkit-scrollbar, #searchResult::-webkit-scrollbar{
+    width: 6px;
+    background-color: #A3A2A3;
+}
+
+#contributors::-webkit-scrollbar-thumb, #searchResult::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #A3A2A3;
+}
