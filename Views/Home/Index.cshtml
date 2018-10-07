@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Home";
-
 }
 @section scripts {
     <script src="/js/loader.js"></script>
@@ -8,12 +7,13 @@
     <script src="/js/bookmark.js"></script>
     <script src="/js/stats.js"></script>
 }
-<div class="container" id="main">
-    <div class="col-lg-3" id="searchModule">
 
+<div class="container" id="main">
+
+    <div class="col-lg-3" id="searchModule">
         <h3 class="desc">| Recherche</h3>
         <form id="search">
-            <input type="text" id="searchBar" placeholder="Nom du projet" required/>
+            <input type="text" id="searchBar" placeholder="Nom du projet" required />
             <input type="submit" />
             <br />
             <a href="#" id="bookmark" onclick="getBookmarks()">Mon projet</a>
@@ -29,20 +29,21 @@
         </div>
         <button href='#' id='moreResult' disabled>Voir plus</button>
     </div>
-    <!--<div class="col-sm-9" id="stats">
-    <div class="container">-->
+
+
     <div class="col-md-6 graphModule">
         <h3 class="desc">| Statistiques</h3>
         <div id="statsLoader" class="loader"></div>
         <div class="button">
             <h4 id="projectName"></h4><br />
             <a href="#" onclick="clearGraph()">Vider le graphe</a>
-
         </div>
         <div class="graph">
             <div id="graphPlotly"></div>
         </div>
     </div>
+
+
     <div class="col-md-3 graphModule">
         <h3 class="desc">| Contributeurs</h3>
         <div class="graph" id="contributors">
@@ -62,7 +63,7 @@
                 <span class="nbCommits">**</span>
             </div>
         </div>
-
     </div>
+
 </div>
 

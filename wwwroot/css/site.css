@@ -15,91 +15,108 @@ body {
 #searchModule {
     padding-left: 15px;
 }
+
 #main {
-    width:100%;
-    margin:auto;
+    width: 100%;
+    margin: auto;
 }
+
 .container {
-    padding:0px;
+    padding: 0px;
 }
+
 #stats {
 }
+
 .button {
-    text-align:center;
-    background:white;
+    text-align: center;
+    background: white;
 }
-.button h4 {
-    display:inline-block;
-}
+
+    .button h4 {
+        display: inline-block;
+    }
+
 .graph {
     border-bottom: 1px solid #DFE0E0;
     background: white;
     padding: 5px 12px;
-    padding-bottom:40px;
+    padding-bottom: 40px;
 }
+
 .graphModule {
 }
+
 #searchResult {
     max-height: 550px;
     overflow-y: scroll;
 }
+
 #moreResult {
     width: 100%;
     margin-top: 10px;
     background: #333;
-    color:white;
-    border:none;
-    padding:10px;
-
+    color: white;
+    border: none;
+    padding: 10px;
 }
 
     #moreResult:hover {
         background: black;
     }
+
     #moreResult:disabled {
-        background:grey;
+        background: grey;
     }
-    .loader {
+
+.loader {
     height: 4px;
     width: 100%;
     background: white;
 }
+
 .searchResult {
     height: 100px;
     border-bottom: 1px solid #DFE0E0;
-    background:white;
+    background: white;
     padding: 5px 10px;
 }
 
 .projectStars {
     float: right;
-    font-size:18px;
+    font-size: 18px;
 }
+
 .projectStarsImg {
     float: right;
     width: 20px;
     margin-right: 8px;
 }
+
 .projectOwnerImg {
-    width:30px;
+    width: 30px;
 }
+
 .projectOwner {
     margin-left: 10px;
 }
+
 #header {
     text-align: center;
     background: #333;
     color: white;
 }
+
 #logo {
     height: 40px;
     padding-right: 10px;
     margin-top: -18px;
 }
+
 #title {
     font-family: 'Bree Serif', serif;
     display: inline-block;
-    margin-top:5px;
+    margin-top: 5px;
 }
 
 .desc {
@@ -114,8 +131,8 @@ body {
 
 #bookmark {
     color: white;
-    margin-top:8px;
-    display:block;
+    margin-top: 8px;
+    display: block;
 }
 
 #contributors {
@@ -124,11 +141,13 @@ body {
 }
 
 .contributor {
-    margin-top:10px;
+    margin-top: 10px;
 }
-h4.contributor, h4.nbCommits{
+
+h4.contributor, h4.nbCommits {
     display: inline-block;
 }
+
 .nbCommits {
     float: right;
 }
@@ -141,10 +160,12 @@ h4.contributor, h4.nbCommits{
 #contributors::-webkit-scrollbar-track {
     background-color: #EFEFEF;
 }
+
 #searchResult::-webkit-scrollbar-track {
     background-color: white;
 }
-    #contributors::-webkit-scrollbar, #searchResult::-webkit-scrollbar{
+
+#contributors::-webkit-scrollbar, #searchResult::-webkit-scrollbar {
     width: 6px;
     background-color: #A3A2A3;
 }
@@ -153,8 +174,9 @@ h4.contributor, h4.nbCommits{
     border-radius: 10px;
     background-color: #A3A2A3;
 }
+
 #footer {
-    text-align:right;
-    padding-right:30px;
-    margin-top:40px;
+    text-align: right;
+    padding-right: 30px;
+    margin-top: 40px;
 }

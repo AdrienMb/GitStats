@@ -1,35 +1,32 @@
-﻿
-function stats(name, owner) {
+﻿function stats(name, owner) {
     event.preventDefault();
     loader("#statsLoader");
     $("#projectName").html(name + ' par ' + owner);
     $.ajax({
-        url: "/api/Stats/" + name + "&" + owner,
+        url: "/api/Stats/" + name + "/" + owner,
         type: "GET",
         dataType: "json",
         tryCount: 0,
         retryLimit: 3,
         success: function (data, i) {
-            contributors(data,name,owner);
+            contributors(data, name, owner);
             commitsGraph(data, name, owner);
             $("#statsLoader").css("background", "white");
         },
         error: function (xhr, textStatus, errorThrown) {
-            if (textStatus == 'timeout') {
-                this.tryCount++;
-                if (this.tryCount <= this.retryLimit) {
-                    $.ajax(this);
-                    return;
-                }
-                alert("Une erreur est survenue.");
+            this.tryCount++;
+            if (this.tryCount <= this.retryLimit) {
+                $.ajax(this);
                 return;
             }
             alert("Une erreur est survenue.");
-            
+            return;
+
         }
     });
 }
-function contributors(data, name,owner) {
+
+function contributors(data, name, owner) {
     var row = "<div class='button'>";
     row += "<a href='#' id='save' onclick=\"saveBookmark('" + name + "','" + owner + "')\">Sauvegarder le projet</a></div><br />";
     $("#contributors").html("");
@@ -55,15 +52,12 @@ function commitsGraph(data, name, owner) {
         dates = dates.concat((element["commits"]));
     });
 
-    // à revoir
     var days = [];
     dates.forEach(function (element, i) {
         days.push(element.substring(0, 10));
     });
 
     var values = new Array(days.length).fill(1);
-    console.log(days);
-    console.log(values);
 
     GRAPH = document.getElementById('graphPlotly');
 
@@ -71,7 +65,7 @@ function commitsGraph(data, name, owner) {
         type: 'bar',
         x: days,
         y: values,
-        name: name+' par '+owner,
+        name: name + ' par ' + owner,
         mode: 'markers',
         transforms: [{
             type: 'aggregate',
@@ -98,4 +92,5 @@ function commitsGraph(data, name, owner) {
     };
     Plotly.plot(GRAPH, data, layout);
 }
+
 

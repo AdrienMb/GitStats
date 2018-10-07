@@ -17,47 +17,22 @@ namespace GitStats.Controllers
     public class StatsController : ControllerBase
     {
         private static readonly HttpClient client = new HttpClient();
+        private readonly string githubUrl = "https://api.github.com/repos/";
 
-
-        // GET: api/Stats/:project&:owner
-        [HttpGet("{projectWithOwner}", Name = "GetStats")]
-        public async Task<string> GetAsync(string projectWithOwner)
+        // GET: api/Stats/project/owner
+        [HttpGet("{project}/{owner}", Name = "GetStats")]
+        public async Task<string> GetAsync(string project, string owner)
         {
-
-            string project = projectWithOwner.Split('&')[0];
-            string owner = projectWithOwner.Split('&')[1];
-            List<UserModel> contributors = await GetContributorsAsync(project, owner);
-            List<UserModel> contributorsWithCommits = await GetCommitsAsync(project, owner, contributors);
-            return JsonConvert.SerializeObject(contributorsWithCommits, Formatting.Indented);
-        }
-
-        public async Task<List<UserModel>> GetContributorsAsync(string project, string owner)
-        {
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-            client.DefaultRequestHeaders.Add("User-Agent", "request");
-
-            var stringTask = client.GetStringAsync("https://api.github.com/repos/" + owner + "/" + project + "/stats/contributors");
-
-            JArray arr = JArray.Parse(await stringTask);
-            List<UserModel> authors = new List<UserModel>();
-            foreach(JObject jauthor in arr)
+            JArray jContributors = await CallContributorsAsync(project, owner);
+            JArray jCommits = await CallCommitsAsync(project, owner);
+            List<UserModel> contributors = new List<UserModel>();
+            foreach (JObject jauthor in jContributors)
             {
                 UserModel author = jauthor.Value<JObject>("author").ToObject<UserModel>();
                 author.Commits = new List<DateTime>();
-                authors.Add(author);
+                contributors.Add(author);
             }
-            return authors;
-        }
-        public async Task<List<UserModel>> GetCommitsAsync(string project, string owner, List<UserModel> contributors)
-        {
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-            client.DefaultRequestHeaders.Add("User-Agent", "request");
-
-            var stringTask = client.GetStringAsync("https://api.github.com/repos/" + owner + "/" + project + "/commits?per_page=100");
-            JArray arr = JArray.Parse(await stringTask);
-             foreach(JObject jcommit in arr)
+            foreach (JObject jcommit in jCommits)
             {
                 JObject jauthor = jcommit.Value<JObject>("author");
                 if (jauthor != null)
@@ -68,13 +43,31 @@ namespace GitStats.Controllers
                     DateTime monday = date.AddDays(delta);
                     UserModel committer = contributors.Find(contributor => contributor.Id == committerId);
                     System.Diagnostics.Debug.WriteLine(date);
-                    if (committer!=null)
+                    if (committer != null)
                         committer.Commits.Add(monday);
                 }
             }
+            return JsonConvert.SerializeObject(contributors, Formatting.Indented);
+        }
 
-            return contributors;
+        public async Task<JArray> CallContributorsAsync(string project, string owner)
+        {
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
 
+            var stringTask = client.GetStringAsync(githubUrl + owner + "/" + project + "/stats/contributors");
+
+            return JArray.Parse(await stringTask);
+        }
+        public async Task<JArray> CallCommitsAsync(string project, string owner)
+        {
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
+
+            var stringTask = client.GetStringAsync(githubUrl + owner + "/" + project + "/commits?per_page=100");
+            return JArray.Parse(await stringTask);
         }
     }
 }

@@ -16,26 +16,22 @@ namespace GitStats.Controllers
     [ApiController]
     public class SearchController : ControllerBase
     {
-        private static readonly HttpClient client = new HttpClient();
-     
 
-        // GET: api/Search/:project&:page
-        [HttpGet("{projectWithPage}", Name = "GetSearch")]
-        public async Task<string> GetAsync(string projectWithPage)
+        private static readonly HttpClient client = new HttpClient();
+        private readonly string githubUrl = "https://api.github.com/search/repositories?per_page=6&q=";
+
+        // GET: api/Search/project/page
+        [HttpGet("{project}/{page}", Name = "GetSearch")]
+        public async Task<string> GetAsync(string project, string page)
         {
-            string[] requestParameters = projectWithPage.Split('&');
-            string project = requestParameters[0];
-            string page = requestParameters[1];
 
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
-            var stringTask = client.GetStringAsync("https://api.github.com/search/repositories?per_page=6&q=" + project+"&page="+page);
-            dynamic stuff = JObject.Parse(await stringTask);
-            Console.WriteLine(stuff);
-            var result = JsonConvert.DeserializeObject<JObject>(stuff.ToString());
-            var projects = result.Value<JArray>("items").ToObject<List<ProjectModel>>();
+            var stringTask = client.GetStringAsync(githubUrl + project + "&page=" + page);
+            JObject response = JObject.Parse(await stringTask);
+            var projects = response.Value<JArray>("items").ToObject<List<ProjectModel>>();
             return JsonConvert.SerializeObject(projects, Formatting.Indented);
         }
     }
