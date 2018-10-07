@@ -19,16 +19,19 @@ namespace GitStats.Controllers
         private static readonly HttpClient client = new HttpClient();
      
 
-        // GET: api/Search/:project
-        [HttpGet("{project}", Name = "GetSearch")]
-        public async Task<string> GetAsync(string project)
+        // GET: api/Search/:project&:page
+        [HttpGet("{projectWithPage}", Name = "GetSearch")]
+        public async Task<string> GetAsync(string projectWithPage)
         {
+            string[] requestParameters = projectWithPage.Split('&');
+            string project = requestParameters[0];
+            string page = requestParameters[1];
+
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
-            var stringTask = client.GetStringAsync("https://api.github.com/search/repositories?per_page=6&q=" + project);
-
+            var stringTask = client.GetStringAsync("https://api.github.com/search/repositories?per_page=6&q=" + project+"&page="+page);
             dynamic stuff = JObject.Parse(await stringTask);
             Console.WriteLine(stuff);
             var result = JsonConvert.DeserializeObject<JObject>(stuff.ToString());

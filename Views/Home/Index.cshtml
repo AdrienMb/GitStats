@@ -13,7 +13,7 @@
 
         <h3 class="desc">| Recherche</h3>
         <form id="search">
-            <input type="text" id="searchBar" placeholder="Nom du projet" />
+            <input type="text" id="searchBar" placeholder="Nom du projet" required/>
             <input type="submit" />
             <br />
             <a href="#" id="bookmark" onclick="getBookmarks()">Mon projet</a>
@@ -27,6 +27,7 @@
                 <span class="projectOwner">-----</span>
             </div>
         </div>
+        <button href='#' id='moreResult' disabled>Voir plus</button>
     </div>
     <!--<div class="col-sm-9" id="stats">
     <div class="container">-->
@@ -34,8 +35,10 @@
         <h3 class="desc">| Statistiques</h3>
         <div id="statsLoader" class="loader"></div>
         <div class="button">
-        <a href="#" onclick="clearGraph()">Vider le graphe</a>
-            </div>
+            <h4 id="projectName"></h4><br />
+            <a href="#" onclick="clearGraph()">Vider le graphe</a>
+
+        </div>
         <div class="graph">
             <div id="graphPlotly"></div>
         </div>

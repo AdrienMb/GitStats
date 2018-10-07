@@ -2,6 +2,7 @@
 function stats(name, owner) {
     event.preventDefault();
     loader("#statsLoader");
+    $("#projectName").html(name + ' par ' + owner);
     $.ajax({
         url: "/api/Stats/" + name + "&" + owner,
         type: "GET",
@@ -30,10 +31,11 @@ function stats(name, owner) {
 }
 function contributors(data, name,owner) {
     var row = "<div class='button'>";
-    row += "<a href='#' id='save' onclick=\"saveBookmark('" + name + "','" + owner + "')\">Sauvegarder</a></div><br />";
+    row += "<a href='#' id='save' onclick=\"saveBookmark('" + name + "','" + owner + "')\">Sauvegarder le projet</a></div><br />";
     $("#contributors").html("");
     row += "<h4 class='contributor'>Nom</h3>";
     row += "<h4 class='nbCommits'>Commits</h3>";
+    data.sort(function (a, b) { return b["commits"].length - a["commits"].length; });
     data.forEach(function (element, i) {
         row += "<div class='contributor'><img class='projectOwnerImg' src='" + element["avatar_url"] + "'/>";
         row += "</ br><span class='projectOwner'>" + element["login"] + "</span>";

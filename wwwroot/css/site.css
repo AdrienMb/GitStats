@@ -16,7 +16,6 @@ body {
     padding-left: 15px;
 }
 #main {
-    position:absolute;
     width:100%;
     margin:auto;
 }
@@ -29,6 +28,9 @@ body {
     text-align:center;
     background:white;
 }
+.button h4 {
+    display:inline-block;
+}
 .graph {
     border-bottom: 1px solid #DFE0E0;
     background: white;
@@ -38,10 +40,26 @@ body {
 .graphModule {
 }
 #searchResult {
-    max-height: 700px;
+    max-height: 550px;
     overflow-y: scroll;
 }
-.loader {
+#moreResult {
+    width: 100%;
+    margin-top: 10px;
+    background: #333;
+    color:white;
+    border:none;
+    padding:10px;
+
+}
+
+    #moreResult:hover {
+        background: black;
+    }
+    #moreResult:disabled {
+        background:grey;
+    }
+    .loader {
     height: 4px;
     width: 100%;
     background: white;
@@ -134,4 +152,9 @@ h4.contributor, h4.nbCommits{
 #contributors::-webkit-scrollbar-thumb, #searchResult::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #A3A2A3;
+}
+#footer {
+    text-align:right;
+    padding-right:30px;
+    margin-top:40px;
 }
