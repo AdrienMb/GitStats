@@ -23,16 +23,17 @@ namespace GitStats.Controllers
         [HttpGet("{project}/{owner}", Name = "GetStats")]
         public async Task<string> GetAsync(string project, string owner)
         {
-            JArray jContributors = await CallContributorsAsync(project, owner);
-            JArray jCommits = await CallCommitsAsync(project, owner);
+            Task<JArray> jContributorsT = CallContributorsAsync(project, owner);
+            Task<JArray> jCommitsT = CallCommitsAsync(project, owner);
+            JArray[] responses = await Task.WhenAll(jContributorsT, jCommitsT);
             List<UserModel> contributors = new List<UserModel>();
-            foreach (JObject jauthor in jContributors)
+            foreach (JObject jauthor in responses[0])
             {
                 UserModel author = jauthor.Value<JObject>("author").ToObject<UserModel>();
                 author.Commits = new List<DateTime>();
                 contributors.Add(author);
             }
-            foreach (JObject jcommit in jCommits)
+            foreach (JObject jcommit in responses[1])
             {
                 JObject jauthor = jcommit.Value<JObject>("author");
                 if (jauthor != null)
