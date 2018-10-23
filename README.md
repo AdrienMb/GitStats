@@ -6,7 +6,7 @@
 
 Cette app permet de rechercher parmis les projets GitHub et d'afficher les 100 derniers "commits" sur le temps ainsi que la liste des contributeurs.
 
-####En savoir plus
+#### En savoir plus
 
 Ce projet utilise l'api GitHub sans authentification. Le nombre de requête est donc limité, je n'ai cependant jamais rencontré cette limite lors du développement.
 Le site est responsive, cependant si l'on modifie la taille de la fenêtre il faut recharger la page pour que le graphe s'adapte.
