@@ -2,7 +2,7 @@
 ### Projet en ASP .net CORE 2.1
 ##### + jQuery, Bootstrap, plotly
 
-![Capture d'écran du site](wwwroot/images/Capture.png?raw=true "GitStats")
+![Capture d'écran du site](wwwroot/images/Capture.PNG "GitStats")
 
 Cette app permet de rechercher parmis les projets GitHub et d'afficher les 100 derniers "commits" sur le temps ainsi que la liste des contributeurs.
 
